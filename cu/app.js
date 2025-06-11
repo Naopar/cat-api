@@ -1,6 +1,6 @@
 const express = require('express');
 const axios = require('axios');
-const path = require('path'); // pathモジュールを追加
+const path = require('path');
 const app = express();
 const port = 30074;
 
