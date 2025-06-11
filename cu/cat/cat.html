@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Dog and Yes/No API</title>
+    <title>Cat and Dog API</title>
 </head>
 <body>
-    <h1>ランダムな犬の画像とYes/No</h1>
+    <h1>ランダムな犬と猫の画像</h1>
     <img id="dogImage" src="" alt="Dog Image">
-    <div id="yesNoResponse"></div>
-    <img id="qrCode" src="" alt="QR Code">
+    <img id="catImage" src="" alt="Cat Image">
     <button onclick="fetchData()">データを取得</button>
 
     <script>
@@ -17,11 +16,7 @@
             const response = await fetch('/api/random');
             const data = await response.json();
             document.getElementById('dogImage').src = data.dogImage;
-            document.getElementById('yesNoResponse').innerHTML = `
-                <p>${data.yesNo.answer}</p>
-                <img src="${data.yesNo.image}" alt="Yes/No Image">
-            `;
-            document.getElementById('qrCode').src = data.qrCode;
+            document.getElementById('catImage').src = data.catImage;
         }
     </script>
 </body>
