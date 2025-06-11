@@ -3,21 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cat and Dog API</title>
+    <title>API Demo</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        img {
+            max-width: 300px;
+            height: auto;
+            margin: 10px;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #yesNoResponse {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        #yesNoResponse img {
+            max-width: 200px;
+        }
+    </style>
 </head>
 <body>
-    <h1>ランダムな犬と猫の画像</h1>
+    <h1>ランダムな犬の画像とYes/No</h1>
     <img id="dogImage" src="" alt="Dog Image">
-    <img id="catImage" src="" alt="Cat Image">
+    <div id="yesNoResponse"></div>
+    <h2>QRコード</h2>
+    <img id="qrCode" src="" alt="QR Code">
     <button onclick="fetchData()">データを取得</button>
 
     <script>
         async function fetchData() {
-            const response = await fetch('/api/random');
-            const data = await response.json();
-            document.getElementById('dogImage').src = data.dogImage;
-            document.getElementById('catImage').src = data.catImage;
+            try {
+                const response = await fetch('/api/random');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                
+                document.getElementById('dogImage').src = data.dogImage;
+                
+                // Yes/No APIの表示
+                const yesNoDiv = document.getElementById('yesNoResponse');
+                yesNoDiv.innerHTML = `
+                    <p><strong>Yes/No:</strong> ${data.yesNo.answer}</p>
+                    <img src="${data.yesNo.image}" alt="Yes/No Image">
+                `;
+                
+                // QRコードの表示
+                document.getElementById('qrCode').src = data.qrCode;
+
+            } catch (error) {
+                console.error("Fetch error:", error);
+                alert("データの取得に失敗しました。コンソールを確認してください。");
+            }
         }
+        // ページ読み込み時に一度データを取得する
+        window.onload = fetchData;
     </script>
 </body>
 </html>
