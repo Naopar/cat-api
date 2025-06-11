@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const path = require('path'); // pathモジュールを追加
 const app = express();
-const port = 3000;
+const port = 30074;
 
 // 静的ファイルの提供
 app.use(express.static('cu'));
