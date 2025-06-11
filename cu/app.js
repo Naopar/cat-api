@@ -1,15 +1,18 @@
 const express = require('express');
 const axios = require('axios');
+const path = require('path'); // pathモジュールを追加
 const app = express();
-const port = 30074;
+const port = 3000;
 
-app.use(express.static('cat'));
+// 静的ファイルの提供
+app.use(express.static('cu'));
 
 // ルートパスのハンドラー
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/cat/cat.html'); // index.htmlを返す
+    res.sendFile(path.join(__dirname, 'cat/cat.html')); // cat.htmlを返す
 });
 
+// APIエンドポイント
 app.get('/api/random', async (req, res) => {
     try {
         const dogResponse = await axios.get('https://dog.ceo/api/breeds/image/random');
