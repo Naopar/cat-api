@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Dog and Yes/No API</title>
+</head>
+<body>
+    <h1>ランダムな犬の画像とYes/No</h1>
+    <img id="dogImage" src="" alt="Dog Image">
+    <div id="yesNoResponse"></div>
+    <img id="qrCode" src="" alt="QR Code">
+    <button onclick="fetchData()">データを取得</button>
+
+    <script>
+        async function fetchData() {
+            const response = await fetch('/api/random');
+            const data = await response.json();
+            document.getElementById('dogImage').src = data.dogImage;
+            document.getElementById('yesNoResponse').innerHTML = `
+                <p>${data.yesNo.answer}</p>
+                <img src="${data.yesNo.image}" alt="Yes/No Image">
+            `;
+            document.getElementById('qrCode').src = data.qrCode;
+        }
+    </script>
+</body>
+</html>
