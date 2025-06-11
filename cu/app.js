@@ -3,7 +3,7 @@ const axios = require('axios');
 const app = express();
 const port = 30074;
 
-app.use(express.static('public'));
+app.use(express.static('cat'));
 
 // ルートパスのハンドラー
 app.get('/', (req, res) => {
